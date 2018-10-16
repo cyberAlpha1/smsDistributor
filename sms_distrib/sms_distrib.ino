@@ -1,12 +1,12 @@
 #include <GSM.h>
 
-#define pin ""
+#define pin "5580"
 
 GSM gsmAccess;
 GSM_SMS sms;
 
 String msg;
-const String oNum = "+371";
+const String oNum = "+37127142381";
 char senderNumber[20]; 
 char cmdPrefix = '!';
 char msgSep = '|';
@@ -129,8 +129,12 @@ void processRequest(String request)
     {
       Serial.println("SMS distributor config: ");
       Serial.println("   Owner number: " + oNum);
-      Serial.println("   Command prefix: " + cmdPrefix);
-      Serial.println("   Message seperator: " + msgSep);
+      Serial.print("   Command prefix: \"");
+      Serial.print(cmdPrefix);
+      Serial.println("\"");
+      Serial.print("   Message seperator: \"");
+      Serial.print(msgSep);
+      Serial.println("\"");
     }
     else
     {
@@ -140,15 +144,16 @@ void processRequest(String request)
   else if(request.indexOf(msgSep) != -1) // Is it a message that we should distribute?
   {        
     while(request[0] != msgSep)
-    {}
+    {
+      request.remove(0, 1);
+    }
+
+    request.remove(0, 1);
   }
   else
   {
-    Serial.println("Nothing interesting, move along citizen");
+    Serial.println("Nothing interesting");
   }
-  Serial.print("This nibba: [");
-  Serial.print(msg[0]);
-  Serial.println("]");
 }
 
 void sendMessage(char number[20], char message[200])
