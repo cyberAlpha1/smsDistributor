@@ -1,12 +1,12 @@
 #include <GSM.h>
 
-#define pin "5580"
+#define pin ""
 
 GSM gsmAccess;
 GSM_SMS sms;
 
 String msg;
-const String oNum = "+37127142381";
+const String oNum = "+371";
 char senderNumber[20]; 
 char cmdPrefix = '!';
 char msgSep = '|';
